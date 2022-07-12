@@ -1,18 +1,18 @@
 from conf.config import *
 from main_module.ultils.fileUltils import *
 from main_module.ultils.common import *
+
 botRes = Message.getBotResMessage()
 
-def process(self, key):
-    
-    url = getCurrUrlFolder()+"\main_module\cmd_mapper\cmd_mapper.ini"
-    arr =  getAllCmdWKey(key, readFileIntoArr(url))
+def process(self, key, cusResq):
+    arrCmd = getArrAllModule(CSys.PATH_CMD)
+    arr =  getAllCmdWKey(key, arrCmd)
     print('list cmd:')
     print(arr)
     for item in arr:
-        exc(self, item)
+        exc(self, item, cusResq)
     
-def exc(self, cmd):
+def exc(self, cmd, cusResq):
     cmd = getValueMess(cmd)
     arrCmd = textToArray(cmd, CKey.SEPR_CMD_MAPPER) 
     if len(arrCmd) <= 1:
@@ -23,6 +23,8 @@ def exc(self, cmd):
         cmd_process(self, arrCmd)
     elif cmd_key == CMD.SLINK:
         slink_process(self, arrCmd)
+    elif cmd_key == CMD.SEARCH:
+        ggs_process(self, arrCmd, cusResq)
         
 def cmd_process(self, arrCmd):
     cmd_value = arrCmd[2]
@@ -31,11 +33,24 @@ def cmd_process(self, arrCmd):
         
 def slink_process(self, arrCmd):
     cmd_link = arrCmd[2]
-    cmd_selector = arrCmd[3]
-    res = getContentFromLink(cmd_link, cmd_selector)
-    printTerminal(self, arrCmd, res)
+    getContentFromUrl(self, arrCmd, cmd_link)
+    
+def ggs_process(self, arrCmd, cusResq):
+    cmd_link = arrCmd[2]
+    
+    url = ggleSearch(cusResq + " "+cmd_link, cmd_link)
+    getContentFromUrl(self, arrCmd, url)
         
 def printTerminal(self,arrCmd, message):
     if arrCmd[1] == CMD.READ_YES:
         printMessage(self, message)
+        
+def getContentFromUrl(self, arrCmd, url):
+    iSeArr = [0]
+    if len(arrCmd)>4:
+        strIndex = arrCmd[4]
+        iSeArr = textToArray(strIndex, CMD.SPLIT_INDEX)
+    cmd_selector = arrCmd[3]
+    res = getContentFromLink(botRes, url, cmd_selector, iSeArr)
+    printTerminal(self, arrCmd, res)
         

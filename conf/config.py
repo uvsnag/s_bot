@@ -21,15 +21,20 @@ class CMD:
     
     READ_NO = "0"
     READ_YES = "1"
+    SPLIT_INDEX = ","
     
 class CSys:
     LANG = VSys.ENG
+    PATH_MODULE_ARR =  ["\main_module", 
+                        "\modules\google_search"
+                        ]
+    PATH_MESSAGE = "\message\\" + LANG + "\data.ini"
+    PATH_CMD = "\cmd_mapper\cmd_mapper.ini"
     
 class VSearch:
-    # TYPE_TXT = 1
-    # TYPE_MEDIA = 2
     ARR_ACCESS_DENIED = ['Access Denied', "You don't have permission to access"]
     
-    ARR_MEDIA = ['youtube.com']
-    ARR_WHAT_IS = ['wikipedia.org']
-    ARR_MEAN_ENG = ['wikipedia.org']
+class CSearch:
+    DEFAULT_START_RESULT = 0
+    DEFAULT_NUM_RESULT = 20
+    DEFAULT_CHOOSE_LINK = 1

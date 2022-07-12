@@ -1,31 +1,42 @@
 import configparser
 from conf.config import *
 import os
-
-# import tkinter as tk
-# from main_module.ultils.common import *
-
+from main_module.ultils.common import *
+from main_module.ultils.common import *
 
 def getCurrUrlFolder():
     directory = os.getcwd()
     return directory
 
-rootUrl = getCurrUrlFolder()+"\main_module\message\\" + CSys.LANG + "\\"
 
 class Message:
     def getBotResMessage():
+        rootUrl = getCurrUrlFolder()+"\main_module\message\\" + CSys.LANG + "\\"    
         url = rootUrl + "sys.message"
         return getMessageObject(url, "bot-res")
     
     def getDataMessage():
-        url = rootUrl + "data.ini"
-        return readFileIntoArr(url)
+        arr = getArrAllModule(CSys.PATH_MESSAGE)
+        print(arr)
+        return arr
     
+def getArrAllModule(urlFile):
+    arr = []
+    for item in CSys.PATH_MODULE_ARR:
+            url = getCurrUrlFolder() +item + urlFile
+            arr = arr + readFileIntoArr(url)
+    return arr
+
 def deterCommand(cmd, arr):
     result=""
     for item in arr:
-        if getValueMess(item).strip() == cmd.strip():
+        if isEqualTrim(getValueMess(item), cmd):
             result = getKeyMess(item)
+            
+    if result == "":
+        for item in arr:
+            if isContainTrim(getValueMess(item), cmd):
+                result = getKeyMess(item)
     print('key determined: '+result)
     return result 
             
@@ -45,16 +56,11 @@ def getMessageObject(url, objName):
     return obj        
     
 def readFileIntoArr(url):
-    file = open(url, "r")
+    file = open(url, "r", encoding ='UTF-8')
     content = file.read()
     arrMess = textToArray(content, CKey.KEY_NEWLINE)
     return arrMess
 
-def textToArray(content, split):
-    deterChar = '`'
-    content = content.replace(split, deterChar)
-    arr = content.split(deterChar)
-    return arr
 
 def getKeyMess(cmd):
     indexOfSep = cmd.find(CKey.SEPR_MESS)

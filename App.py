@@ -8,7 +8,7 @@ from main_module.ultils.common import *
 from main_module.cmd_mapper.cmd_define import *
 
 #TODO import all in folder
-from modules.google_search.main import *
+# from modules.google_search.main import *
 
 botRes = Message.getBotResMessage()
 data = Message.getDataMessage()
@@ -25,16 +25,14 @@ class Application(tk.Frame):
         self.txt_terminal.pack()
         self.txt_terminal.place(x=30, y=40)
         printMessage(self, botRes['hello'])
-        # googleSearch('what is time now')
-        # googleSearch(self, botRes,'con gà')
         
     def on_execute(self, event = None):
-        cmd = self.getLastRow()
-        key = deterCommand(cmd, data)
+        cusResq = self.getLastRow()
+        key = deterCommand(cusResq, data)
         if not key or key == '':
             printMessage(self, botRes['cmd-not-found'])
         else:
-            process(self, key)
+            process(self, key, cusResq)
         
     # txt_terminal
     def getLastRow(self):
