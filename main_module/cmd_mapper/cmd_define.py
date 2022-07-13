@@ -7,7 +7,7 @@ botRes = Message.getBotResMessage()
 def process(self, key, cusResq):
     arrCmd = getArrAllModule(CSys.PATH_CMD)
     arr =  getAllCmdWKey(key, arrCmd)
-    print('list cmd:')
+    print('List cmd of key:')
     print(arr)
     for item in arr:
         exc(self, item, cusResq)

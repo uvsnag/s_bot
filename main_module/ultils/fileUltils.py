@@ -50,7 +50,7 @@ def getAllCmdWKey(key, arr):
                 
 def getMessageObject(url, objName):
     config_obj = configparser.ConfigParser()
-    config_obj.read(url)
+    config_obj.read(url, encoding = 'UTF-8')
     obj = config_obj[objName]
     print('object:'+objName+ ' has been loaded!') 
     return obj        

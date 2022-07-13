@@ -24,12 +24,13 @@ class CMD:
     SPLIT_INDEX = ","
     
 class CSys:
-    LANG = VSys.ENG
+    LANG = VSys.VIE
     PATH_MODULE_ARR =  ["\main_module", 
                         "\modules\google_search"
                         ]
     PATH_MESSAGE = "\message\\" + LANG + "\data.ini"
     PATH_CMD = "\cmd_mapper\cmd_mapper.ini"
+    CHECK_ACCENT_VIETNAMESE = False 
     
 class VSearch:
     ARR_ACCESS_DENIED = ['Access Denied', "You don't have permission to access"]
