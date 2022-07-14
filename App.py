@@ -36,10 +36,14 @@ class Application(tk.Frame):
             printMessage(self, botRes[CommandConstants.CMD_NOT_FOUND])
         else:
             if key == CommandConstants.NEXT_RESULT:
-                nextResult()
-                process(self, StaticVar.CURRENT_KEY, cusResq)
+                StaticVar.CURRENT_INDEX_ARRLINK = StaticVar.CURRENT_INDEX_ARRLINK + 1
+                if StaticVar.CURRENT_KEY == "":
+                    return 
+                process(self, StaticVar.CURRENT_KEY, StaticVar.CURRENT_SEARCH_STR)
             else:
                 StaticVar.CURRENT_INDEX_ARRLINK = 0
+                StaticVar.CURRENT_SEARCH_STR = ''
+                StaticVar.CURRENT_KEY = key
                 process(self, key, cusResq)
         
     # txt_terminal

@@ -33,10 +33,9 @@ def deterCommand(cmd, arr):
     for item in arr:
         if isEqualTrim(getValueMess(item), cmd):
             result = getKeyMess(item)
-            StaticVar.CURRENT_KEY = item
     if result == "":
         for item in arr:
-            if isContainTrim(getValueMess(item), cmd):
+            if isContainTrim(cmd, getValueMess(item)):
                 result = getKeyMess(item)
     print('key determined: '+result)
     return result 
@@ -45,7 +44,7 @@ def getAllCmdWKey(key, arr):
     arrRes = []
     for item in arr:
         if getKeyMess(item).strip() == key.strip():
-            arrRes.append(item)
+            arrRes.append(getValueMess(item))
     return arrRes 
             
                 
