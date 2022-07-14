@@ -3,6 +3,7 @@ from conf.config import *
 import os
 from main_module.ultils.common import *
 from main_module.ultils.common import *
+from common.static_value import *
 
 def getCurrUrlFolder():
     directory = os.getcwd()
@@ -11,7 +12,7 @@ def getCurrUrlFolder():
 
 class Message:
     def getBotResMessage():
-        rootUrl = getCurrUrlFolder()+"\main_module\message\\" + CSys.LANG + "\\"    
+        rootUrl = getCurrUrlFolder()+"\main_module\message\\" + CSys.APP_LANG + "\\"    
         url = rootUrl + "sys.message"
         return getMessageObject(url, "bot-res")
     
@@ -32,7 +33,7 @@ def deterCommand(cmd, arr):
     for item in arr:
         if isEqualTrim(getValueMess(item), cmd):
             result = getKeyMess(item)
-            
+            StaticVar.CURRENT_KEY = item
     if result == "":
         for item in arr:
             if isContainTrim(getValueMess(item), cmd):
@@ -50,13 +51,13 @@ def getAllCmdWKey(key, arr):
                 
 def getMessageObject(url, objName):
     config_obj = configparser.ConfigParser()
-    config_obj.read(url, encoding = 'UTF-8')
+    config_obj.read(url, encoding = CSys.APP_ENCODE)
     obj = config_obj[objName]
     print('object:'+objName+ ' has been loaded!') 
     return obj        
     
 def readFileIntoArr(url):
-    file = open(url, "r", encoding ='UTF-8')
+    file = open(url, "r", encoding = CSys.APP_ENCODE)
     content = file.read()
     arrMess = textToArray(content, CKey.KEY_NEWLINE)
     return arrMess

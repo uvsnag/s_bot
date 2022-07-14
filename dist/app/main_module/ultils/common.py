@@ -32,7 +32,7 @@ def getContentFromLink(botRes, url, der, iSeArr):
             reStr += results[int(i)].text
         print(reStr)
         return reStr
-    return botRes['cmd-not-found']
+    return botRes[CommandConstants.CMD_NOT_FOUND]
 
 def printMessage(self, message):
     message=  '\n' + message + '\n'

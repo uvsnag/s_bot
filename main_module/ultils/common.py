@@ -7,8 +7,8 @@ import tkinter as tk
 from conf.config import *
 from googlesearch import search
 import re
-# from modules.google_search.main import *
-# from main_module.ultils.fileUltils import *
+from common.static_value import *
+from common.constants import *
 
 # botRes = Message.getBotResMessage()
 
@@ -40,7 +40,7 @@ def getContentFromLink(botRes, url, der, iSeArr):
             reStr += results[int(i)].text
         print("Result is recieved.")
         return reStr
-    return botRes['cmd-not-found']
+    return botRes[CommandConstants.CMD_NOT_FOUND]
 
 def printMessage(self, message):
     message=  '\n' + message + '\n'
@@ -79,7 +79,7 @@ def textToArray(content, split):
 
 def ggleSearch(searchStr, inPage):
     print("gg searching :"+searchStr)
-    search_results = search(searchStr, start=CSearch.DEFAULT_START_RESULT, stop = CSearch.DEFAULT_NUM_RESULT, pause=2)
+    search_results = search(searchStr, start = CSearch.DEFAULT_START_RESULT, stop = CSearch.DEFAULT_NUM_RESULT, pause=2)
     url = ''
     for res in search_results:
         print("checked url:" +res)
@@ -148,7 +148,7 @@ def no_accent_vietnamese(str):
     str = replaceStrWArr(arr_d_L, 'D', str)
     str = replaceStrWArr(arr_u_L, 'A', str)
     
-    print("no_accent_vietnamese: "+str)
+    # print("no_accent_vietnamese: "+str)
     return str
 
 def replaceStrWArr(arr, char,  str):

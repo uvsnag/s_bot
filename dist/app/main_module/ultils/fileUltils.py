@@ -56,7 +56,7 @@ def getMessageObject(url, objName):
     return obj        
     
 def readFileIntoArr(url):
-    file = open(url, "r", encoding ='UTF-8')
+    file = open(url, "r", encoding =CSys.APP_ENCODE)
     content = file.read()
     arrMess = textToArray(content, CKey.KEY_NEWLINE)
     return arrMess

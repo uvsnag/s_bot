@@ -1,3 +1,4 @@
+from this import d
 import tkinter as tk
 from tkinter import scrolledtext
 
@@ -6,6 +7,8 @@ from conf.config import *
 from main_module.ultils.fileUltils import *
 from main_module.ultils.common import *
 from main_module.cmd_mapper.cmd_define import *
+from common.static_value import *
+from common.constants import *
 
 #TODO import all in folder
 # from modules.google_search.main import *
@@ -24,15 +27,20 @@ class Application(tk.Frame):
         self.txt_terminal.bind(CKey.KEY_EXC, self.on_execute)
         self.txt_terminal.pack()
         self.txt_terminal.place(x=30, y=40)
-        printMessage(self, botRes['hello'])
+        printMessage(self, botRes[CSys.APP_FIRST_MESSAGE])
         
     def on_execute(self, event = None):
         cusResq = self.getLastRow()
         key = deterCommand(cusResq, data)
         if not key or key == '':
-            printMessage(self, botRes['cmd-not-found'])
+            printMessage(self, botRes[CommandConstants.CMD_NOT_FOUND])
         else:
-            process(self, key, cusResq)
+            if key == CommandConstants.NEXT_RESULT:
+                nextResult()
+                process(self, StaticVar.CURRENT_KEY, cusResq)
+            else:
+                StaticVar.CURRENT_INDEX_ARRLINK = 0
+                process(self, key, cusResq)
         
     # txt_terminal
     def getLastRow(self):
@@ -44,6 +52,6 @@ class Application(tk.Frame):
 
 root = tk.Tk()
 app = Application(master=root)
-app.master.title("s-bot")
+app.master.title(CSys.APP_NAME)
 app.master.minsize(750, 500)
 app.mainloop()

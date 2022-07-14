@@ -1,6 +1,9 @@
     
 # VALUE
 
+from tkinter import CURRENT
+
+
 class VSys:
     VIE = "vie"
     ENG = "eng"
@@ -12,7 +15,10 @@ class CKey:
     KEY_EXC = "<Return>"
     KEY_NEWLINE = "\n"
     SEPR_MESS = "="
-    SEPR_CMD_MAPPER = "|~|"
+    
+    CMD_SPLIT_LV_1 = "'~'"
+    CMD_SPLIT_LV_2 = "'^'"
+    CMD_SPLIT_LV_3 = "'*'"
     
 class CMD:
     CMD = "cmd"
@@ -22,13 +28,18 @@ class CMD:
     READ_NO = "0"
     READ_YES = "1"
     SPLIT_INDEX = ","
+    SPLIT_LINK = ","
     
 class CSys:
-    LANG = VSys.VIE
+    APP_NAME = "s-bot"
+    APP_LANG = VSys.VIE
+    APP_FIRST_MESSAGE = 'hello'
+    APP_ENCODE = 'UTF-8'
+    
     PATH_MODULE_ARR =  ["\main_module", 
                         "\modules\google_search"
                         ]
-    PATH_MESSAGE = "\message\\" + LANG + "\data.ini"
+    PATH_MESSAGE = "\message\\" + APP_LANG + "\data.ini"
     PATH_CMD = "\cmd_mapper\cmd_mapper.ini"
     CHECK_ACCENT_VIETNAMESE = False 
     

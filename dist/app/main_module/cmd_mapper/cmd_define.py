@@ -14,7 +14,7 @@ def process(self, key, cusResq):
     
 def exc(self, cmd, cusResq):
     cmd = getValueMess(cmd)
-    arrCmd = textToArray(cmd, CKey.SEPR_CMD_MAPPER) 
+    arrCmd = textToArray(cmd, CKey.CMD_SPLIT_LV_1) 
     if len(arrCmd) <= 1:
         print("Cmd is not valid")
         return
