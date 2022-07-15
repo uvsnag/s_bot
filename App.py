@@ -3,12 +3,12 @@ import tkinter as tk
 from tkinter import scrolledtext
 
 
-from conf.config_loader import *
+from main_module.conf.config_loader import *
 from main_module.ultils.fileUltils import *
 from main_module.ultils.common import *
 from main_module.cmd_mapper.cmd_define import *
-from common.static_value import *
-from common.constants import *
+from main_module.common.static_value import *
+from main_module.common.constants import *
 
 #TODO import all in folder
 # from modules.google_search.main import *

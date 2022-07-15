@@ -4,10 +4,10 @@ from bs4 import BeautifulSoup
 import requests
 import subprocess
 import tkinter as tk
-from conf.config_loader import *
+from main_module.conf.config_loader import *
 from googlesearch import search
-from common.static_value import *
-from common.constants import *
+from main_module.common.static_value import *
+from main_module.common.constants import *
 import os
 
 def exc_cmd(cmd):
