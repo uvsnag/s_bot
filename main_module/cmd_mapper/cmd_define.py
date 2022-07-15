@@ -1,4 +1,4 @@
-from conf.config import *
+from conf.config_loader import *
 from main_module.ultils.fileUltils import *
 from main_module.ultils.common import *
 

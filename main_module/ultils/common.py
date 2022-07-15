@@ -4,11 +4,11 @@ from bs4 import BeautifulSoup
 import requests
 import subprocess
 import tkinter as tk
-from conf.config import *
+from conf.config_loader import *
 from googlesearch import search
-import re
 from common.static_value import *
 from common.constants import *
+import os
 
 def exc_cmd(cmd):
     if not cmd:
@@ -173,3 +173,7 @@ def replaceStrWArr(arr, char,  str):
     for item in arr:
        str=str.replace(item, char) 
     return str
+
+def getCurrUrlFolder():
+    directory = os.getcwd()
+    return directory

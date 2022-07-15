@@ -1,19 +1,14 @@
 import configparser
-from conf.config import *
-import os
-from main_module.ultils.common import *
+from conf.config_loader import *
+
 from main_module.ultils.common import *
 from common.static_value import *
 
-def getCurrUrlFolder():
-    directory = os.getcwd()
-    return directory
-
-
 class Message:
     def getBotResMessage():
-        rootUrl = getCurrUrlFolder()+"\main_module\message\\" + CSys.APP_LANG + "\\"    
+        rootUrl = getCurrUrlFolder() + CSys.PATH_BOT_MESSAGE + CSys.APP_LANG + "\\"    
         url = rootUrl + "sys.message"
+        print(url)
         return getMessageObject(url, "bot-res")
     
     def getDataMessage():
@@ -74,4 +69,5 @@ def getValueMess(cmd):
     return value.strip()
 
 
+# write file
 

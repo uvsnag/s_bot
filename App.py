@@ -3,7 +3,7 @@ import tkinter as tk
 from tkinter import scrolledtext
 
 
-from conf.config import *
+from conf.config_loader import *
 from main_module.ultils.fileUltils import *
 from main_module.ultils.common import *
 from main_module.cmd_mapper.cmd_define import *
