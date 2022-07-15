@@ -16,7 +16,7 @@ class Loader:
         if firstChar == lastChar == "'" or firstChar == lastChar == '"':
             value =str(value[1:len(value)-1])
         elif value == 'False' or value == 'True':
-            value = bool(value)
+            value = value == 'True'
         elif firstChar == '[' and lastChar == "]":
             strArr =str(value[1:len(value)-1])
             arr = strArr.split(',')
@@ -65,12 +65,12 @@ class CSys:
     PATH_BOT_MESSAGE = Loader.getPropByKey(CSys, 'PATH_BOT_MESSAGE')
     PATH_MESSAGE = "\message\\" + APP_LANG + "\data.ini"
     PATH_CMD = Loader.getPropByKey(CSys, 'PATH_CMD')
+    PATH_BOT_GEN_CMD_MAPPER = Loader.getPropByKey(CSys, 'PATH_BOT_GEN_CMD_MAPPER')
     CHECK_ACCENT_VIETNAMESE = Loader.getPropByKey(CSys, 'CHECK_ACCENT_VIETNAMESE') 
     
 class VSearch:
     VSearch = Loader.loadConfig()['VSearch']
     ARR_ACCESS_DENIED = Loader.getPropByKey(VSearch, 'ARR_ACCESS_DENIED')
-    # ARR_ACCESS_DENIED = ['Access Denied', "You don't have permission to access"]
     
 class CSearch:
     CSearch = Loader.loadConfig()['CSearch']
@@ -78,6 +78,3 @@ class CSearch:
     DEFAULT_NUM_RESULT = Loader.getPropByKey(CSearch, 'DEFAULT_NUM_RESULT')
     DEFAULT_CHOOSE_LINK = Loader.getPropByKey(CSearch, 'DEFAULT_CHOOSE_LINK')
     
-    # DEFAULT_START_RESULT = 0
-    # DEFAULT_NUM_RESULT = 20
-    # DEFAULT_CHOOSE_LINK = 1

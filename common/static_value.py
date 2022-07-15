@@ -1,5 +1,7 @@
 # value can be changed
 class StaticVar:
     CURRENT_INDEX_ARRLINK = 0
-    CURRENT_KEY = ""
+    PREV_KEY = ""
     CURRENT_SEARCH_STR = ""
+    
+    IS_CHANGE_COMMAND = False

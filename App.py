@@ -32,19 +32,52 @@ class Application(tk.Frame):
     def on_execute(self, event = None):
         cusResq = self.getLastRow()
         key = deterCommand(cusResq, data)
+        #
+        print('prev key:'+ StaticVar.PREV_KEY)
+        if StaticVar.PREV_KEY == CommandConstants.ADD_COMMAND:
+            if not key == CommandConstants.CANCEL_ADD_COMMAND:
+                add_command_exist_key(self, cusResq)
+            return
+        #
         if not key or key == '':
             printMessage(self, botRes[CommandConstants.CMD_NOT_FOUND])
-        else:
-            if key == CommandConstants.NEXT_RESULT:
-                StaticVar.CURRENT_INDEX_ARRLINK = StaticVar.CURRENT_INDEX_ARRLINK + 1
-                if StaticVar.CURRENT_KEY == "":
+            return
+        #
+        match key:
+            case CommandConstants.NEXT_RESULT:
+                if StaticVar.PREV_KEY == "":
+                    printMessage(self, "???")
                     return 
-                process(self, StaticVar.CURRENT_KEY, StaticVar.CURRENT_SEARCH_STR)
-            else:
+                StaticVar.CURRENT_INDEX_ARRLINK = StaticVar.CURRENT_INDEX_ARRLINK + 1
+                process(self, StaticVar.PREV_KEY, StaticVar.CURRENT_SEARCH_STR)
+                
+            case CommandConstants.ADD_COMMAND:
+                if StaticVar.PREV_KEY == "":
+                    printMessage(self, botRes['where-to-add'])
+                    return 
+                add_command_exist_key(self, StaticVar.PREV_KEY)
+                StaticVar.PREV_KEY = key
+                
+            case _:
                 StaticVar.CURRENT_INDEX_ARRLINK = 0
                 StaticVar.CURRENT_SEARCH_STR = ''
-                StaticVar.CURRENT_KEY = key
                 process(self, key, cusResq)
+                StaticVar.PREV_KEY = key
+        
+        
+        
+        # if key == CommandConstants.NEXT_RESULT:
+        #     StaticVar.CURRENT_INDEX_ARRLINK = StaticVar.CURRENT_INDEX_ARRLINK + 1
+        #     if StaticVar.PREV_KEY == "":
+        #         return 
+        #     process(self, StaticVar.PREV_KEY, StaticVar.CURRENT_SEARCH_STR)
+        # elif key == CommandConstants.ADD_COMMAND:
+        #     printMessage(self, botRes['enter-key'])
+        #     return 
+        # else:
+        #     StaticVar.CURRENT_INDEX_ARRLINK = 0
+        #     StaticVar.CURRENT_SEARCH_STR = ''
+        #     process(self, key, cusResq)
         
     # txt_terminal
     def getLastRow(self):

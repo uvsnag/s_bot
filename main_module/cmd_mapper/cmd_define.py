@@ -1,47 +1,67 @@
 from conf.config_loader import *
 from main_module.ultils.fileUltils import *
 from main_module.ultils.common import *
+from model.command import *
 
 botRes = Message.getBotResMessage()
 
 def process(self, key, cusResq):
-    arrCmd =  getAllCmdWKey(key, getArrAllModule(CSys.PATH_CMD))
-    if isSameTypeCmd(arrCmd):
-        process_internet_same_type(self, arrCmd, cusResq)
-    else:
-        process_internet_other_type(self, arrCmd, cusResq)
+    process_internet(self, key, cusResq)
     
     
-def process_internet_same_type(self, arrCmd, cusResq):
-    cmd_type = textToArray(arrCmd[0], CKey.CMD_SPLIT_LV_1)[0]
-    arrUrlCmd = getArrElementCmd(arrCmd, 2)
-    if StaticVar.CURRENT_INDEX_ARRLINK >= len(arrUrlCmd):
+def process_internet(self, key, cusResq):
+    arrCmd =  getAllCmdWKey(key, getArrAllModule(CSys.PATH_CMD)) 
+    if StaticVar.CURRENT_INDEX_ARRLINK >= len(arrCmd):
         printMessage(self, botRes['nothing-more'])
         return
-    cmd_link = arrUrlCmd[StaticVar.CURRENT_INDEX_ARRLINK]
-    print('Getting: '+cmd_link)
+    curr_cmd = arrCmd[StaticVar.CURRENT_INDEX_ARRLINK]
+    arr_cmd_detail = textToArray(curr_cmd, CKey.CMD_SPLIT_LV_1)
+    cmd_type = arr_cmd_detail[0]
+    cmd_is_show_result = arr_cmd_detail[1]
+    cmd_link = arr_cmd_detail[2]
+    cmd_selector = arr_cmd_detail[3]
+    arr_cmd_selector = textToArray(cmd_selector, CKey.CMD_SPLIT_LV_2)
     if cmd_type == CMD.SLINK:
         url = cmd_link
     elif cmd_type == CMD.SEARCH:
-        url = getGgleSearchInPage(cusResq + " " + cmd_link, cmd_link)
         StaticVar.CURRENT_SEARCH_STR = cusResq
-        
+        url = getGgleSearchInPage(cusResq + " " + cmd_link, cmd_link)
     html = getContentFromLink(botRes, url)
-    resStr = getContentForSelector(html, arrCmd)
-    printMessage(self, resStr)
+    for sel in arr_cmd_selector:
+        resStr = getContentForSelector(html, sel, cmd_is_show_result)
+        printMessage(self, resStr)
     
-    
-def process_internet_other_type(self, arrCmd, cusResq):
-    printMessage(self, 'this function is not dev yet!')
-    var_result = ''
-    for item in arrCmd:
-        arrCmd_Detail = textToArray(item, CKey.CMD_SPLIT_LV_1)
-        cmd_type = arrCmd_Detail[0]
-        cmd_url = arrCmd_Detail[2]
-        html = getContentFromLink(botRes, cmd_url)
-        var_result = getContentForSelector(html, arrCmd_Detail)
-        ##
-    
+ 
+def add_command_exist_key(self, value = None):
+    if not value == None:
+        if CommandObj.key == "":
+            CommandObj.key = value
+            printMessage(self, botRes['enter-type'])
+        elif CommandObj.type == "":
+            CommandObj.type = value
+            printMessage(self, botRes['enter-show-flag'])
+        elif CommandObj.isShow == "":
+            CommandObj.isShow = value
+            printMessage(self, botRes['enter-link'])
+        elif CommandObj.link == "":
+            CommandObj.link = value
+            printMessage(self, botRes['enter-selector'])
+        elif CommandObj.selector == "":
+            CommandObj.selector = value
+            str = CommandObj.key+ " " + CKey.SEPR_MESS + CommandObj.type + " "+ CKey.CMD_SPLIT_LV_1 + CommandObj.isShow + \
+                CKey.CMD_SPLIT_LV_1 + CommandObj.link + \
+                CKey.CMD_SPLIT_LV_1 + CommandObj.selector
+            urlFile = getCurrUrlFolder() + CSys.PATH_BOT_GEN_CMD_MAPPER
+            writeFile(urlFile, 1, str)
+            clearAddCMD()
+
+
+ 
+def add_command_not_key(self):
+    printMessage(self, 'this function not dev yet!')
+    return
+
+   
 def cmd_process(self, arrCmd):
     cmd_value = arrCmd[2]
     res = exc_cmd(cmd_value)
@@ -64,3 +84,10 @@ def getArrElementCmd(arr, indexArr):
 def isSameTypeCmd(arrCmd):
     arrType = getArrElementCmd(arrCmd, 1)
     return len(arrType) <= 1
+
+def clearAddCMD():
+    CommandObj.key = ""
+    CommandObj.isShow = ""
+    CommandObj.link = ""
+    CommandObj.selector = ""
+    StaticVar.PREV_KEY = ""

@@ -26,26 +26,22 @@ def getContentFromLink(botRes, url):
     # print(html)
     return html
 
-def getContentForSelector(html, arrCmdMatch):
+def getContentForSelector(html, seleStr, cmd_is_show_result):
+    #arrCmdMatch ->  #mw-content-text .mw-parser-output > p'*'0,1,2,3
     resStr = ''
     soup = BeautifulSoup(html, "html.parser")
-    # print(arrCmdMatch)
-    for cmd in arrCmdMatch:
-        arrCmd = textToArray(cmd, CKey.CMD_SPLIT_LV_1)
-        sel = arrCmd[3]
-        iSeArr = [0]
-        if len(arrCmd)>4:
-            strIndex = arrCmd[4]
-            iSeArr = textToArray(strIndex, CMD.SPLIT_INDEX)
-        print('searching content with selector:' + sel)
-        results = soup.select(sel)
-        print('result:' )
-        print(results)
-        if len(results) > 0:
-            for i in iSeArr:
-                if int(i) < len(results):
-                    if arrCmd[1] == CMD.READ_YES:
-                        resStr = resStr + results[int(i)].text +'\n'
+    arr_sele = textToArray(seleStr, CKey.CMD_SPLIT_LV_3)
+    sel_poiter = arr_sele[0]
+    sel_index_arr = [0]
+    if len(arr_sele)>1:
+        sel_index_arr = textToArray(arr_sele[1], CMD.SPLIT_INDEX)
+    print('searching content with selector:' + sel_poiter)
+    results = soup.select(sel_poiter)
+    if len(results) > 0:
+        for i in sel_index_arr:
+            if int(i) < len(results):
+                if cmd_is_show_result == CMD.READ_YES:
+                    resStr = resStr + results[int(i)].text +'\n'
     return resStr
     
 def printMessage(self, message):
@@ -166,7 +162,7 @@ def no_accent_vietnamese(str):
     str = replaceStrWArr(arr_d_L, 'D', str)
     str = replaceStrWArr(arr_u_L, 'A', str)
     
-    # print("no_accent_vietnamese end: "+str)
+    # print("no_accent_vietnamese/ end: "+str)
     return str
 
 def replaceStrWArr(arr, char,  str):
@@ -177,3 +173,6 @@ def replaceStrWArr(arr, char,  str):
 def getCurrUrlFolder():
     directory = os.getcwd()
     return directory
+
+
+    

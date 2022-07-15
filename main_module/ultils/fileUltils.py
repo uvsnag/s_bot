@@ -3,17 +3,16 @@ from conf.config_loader import *
 
 from main_module.ultils.common import *
 from common.static_value import *
+import codecs
 
 class Message:
     def getBotResMessage():
         rootUrl = getCurrUrlFolder() + CSys.PATH_BOT_MESSAGE + CSys.APP_LANG + "\\"    
         url = rootUrl + "sys.message"
-        print(url)
         return getMessageObject(url, "bot-res")
     
     def getDataMessage():
         arr = getArrAllModule(CSys.PATH_MESSAGE)
-        print(arr)
         return arr
     
 def getArrAllModule(urlFile):
@@ -25,13 +24,15 @@ def getArrAllModule(urlFile):
 
 def deterCommand(cmd, arr):
     result=""
+    # print(cmd)
+    # print(arr)
+    # for item in arr:
+    #     if isEqualTrim(getValueMess(item), cmd):
+    #         result = getKeyMess(item)
+    # if result == "":
     for item in arr:
-        if isEqualTrim(getValueMess(item), cmd):
+        if isContainTrim(cmd, getValueMess(item)):
             result = getKeyMess(item)
-    if result == "":
-        for item in arr:
-            if isContainTrim(cmd, getValueMess(item)):
-                result = getKeyMess(item)
     print('key determined: '+result)
     return result 
             
@@ -71,3 +72,8 @@ def getValueMess(cmd):
 
 # write file
 
+def writeFile(urlFile, line, content):
+    MODE = 'a' #append
+    with open(urlFile, MODE) as the_file:
+        the_file.write('\n')
+        the_file.write(content)
