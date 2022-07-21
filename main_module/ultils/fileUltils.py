@@ -1,7 +1,7 @@
 import configparser
 from main_module.conf.config_loader import *
 
-from main_module.ultils.common import *
+from main_module.ultils.commonUltils import *
 from main_module.common.static_value import *
 import codecs
 
@@ -24,16 +24,20 @@ def getArrAllModule(urlFile):
 
 def deterCommand(cmd, arr):
     result=""
-    # print(cmd)
-    # print(arr)
-    # for item in arr:
-    #     if isEqualTrim(getValueMess(item), cmd):
-    #         result = getKeyMess(item)
-    # if result == "":
     for item in arr:
         if isContainTrim(cmd, getValueMess(item)):
+            key = getKeyMess(item)
+            if not isEqualArr(CSys.ARR_CMD_NOT_CHECK_CASE_IN, key):
+                result = key
+    print('key determined mode in: '+result)
+    return result 
+
+def deterCommandEquals(cmd, arr):
+    result=""
+    for item in arr:
+        if isEqualTrim(cmd, getValueMess(item)):
             result = getKeyMess(item)
-    print('key determined: '+result)
+    print('key determined mode equal: '+result)
     return result 
             
 def getAllCmdWKey(key, arr):
@@ -48,7 +52,7 @@ def getMessageObject(url, objName):
     config_obj = configparser.ConfigParser()
     config_obj.read(url, encoding = CSys.APP_ENCODE)
     obj = config_obj[objName]
-    print('object:'+objName+ ' has been loaded!') 
+    # print('object:'+objName+ ' has been loaded!') 
     return obj        
     
 def readFileIntoArr(url):

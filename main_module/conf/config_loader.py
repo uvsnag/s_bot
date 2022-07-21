@@ -66,7 +66,10 @@ class CSys:
     PATH_MESSAGE = "\message\\" + APP_LANG + "\data.ini"
     PATH_CMD = Loader.getPropByKey(CSys, 'PATH_CMD')
     PATH_BOT_GEN_CMD_MAPPER = Loader.getPropByKey(CSys, 'PATH_BOT_GEN_CMD_MAPPER')
+    PATH_BOT_GEN_MESSAGE = "\modules\\"+"bot_gen\message\\" + APP_LANG + "\data.ini"
     CHECK_ACCENT_VIETNAMESE = Loader.getPropByKey(CSys, 'CHECK_ACCENT_VIETNAMESE') 
+    
+    ARR_CMD_NOT_CHECK_CASE_IN = ['ans-yes', "ans-no"]
     
 class VSearch:
     VSearch = Loader.loadConfig()['VSearch']

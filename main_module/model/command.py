@@ -9,7 +9,13 @@ class CommandObj:
     isShow = ""
     link = ""
     selector = ""
-        
+    isDone1Selector = False
+  
+  
+class MessageObj:
+    key = ""
+    message = ""   
+       
 # class CommandObj():
 #     def __init__(self):
 #         self.key = ""

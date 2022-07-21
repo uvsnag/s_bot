@@ -1,13 +1,12 @@
 from main_module.conf.config_loader import *
 from main_module.ultils.fileUltils import *
-from main_module.ultils.common import *
+from main_module.ultils.commonUltils import *
 from main_module.model.command import *
 
 botRes = Message.getBotResMessage()
 
 def process(self, key, cusResq):
     process_internet(self, key, cusResq)
-    
     
 def process_internet(self, key, cusResq):
     arrCmd =  getAllCmdWKey(key, getArrAllModule(CSys.PATH_CMD)) 
@@ -31,37 +30,6 @@ def process_internet(self, key, cusResq):
         resStr = getContentForSelector(html, sel, cmd_is_show_result)
         printMessage(self, resStr)
     
- 
-def add_command_exist_key(self, value = None):
-    if not value == None:
-        if CommandObj.key == "":
-            CommandObj.key = value
-            printMessage(self, botRes['enter-type'])
-        elif CommandObj.type == "":
-            CommandObj.type = value
-            printMessage(self, botRes['enter-show-flag'])
-        elif CommandObj.isShow == "":
-            CommandObj.isShow = value
-            printMessage(self, botRes['enter-link'])
-        elif CommandObj.link == "":
-            CommandObj.link = value
-            printMessage(self, botRes['enter-selector'])
-        elif CommandObj.selector == "":
-            CommandObj.selector = value
-            str = CommandObj.key+ " " + CKey.SEPR_MESS + CommandObj.type + " "+ CKey.CMD_SPLIT_LV_1 + CommandObj.isShow + \
-                CKey.CMD_SPLIT_LV_1 + CommandObj.link + \
-                CKey.CMD_SPLIT_LV_1 + CommandObj.selector
-            urlFile = getCurrUrlFolder() + CSys.PATH_BOT_GEN_CMD_MAPPER
-            writeFile(urlFile, 1, str)
-            clearAddCMD()
-
-
- 
-def add_command_not_key(self):
-    printMessage(self, 'this function not dev yet!')
-    return
-
-   
 def cmd_process(self, arrCmd):
     cmd_value = arrCmd[2]
     res = exc_cmd(cmd_value)
@@ -85,9 +53,3 @@ def isSameTypeCmd(arrCmd):
     arrType = getArrElementCmd(arrCmd, 1)
     return len(arrType) <= 1
 
-def clearAddCMD():
-    CommandObj.key = ""
-    CommandObj.isShow = ""
-    CommandObj.link = ""
-    CommandObj.selector = ""
-    StaticVar.PREV_KEY = ""
