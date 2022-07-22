@@ -44,9 +44,13 @@ class CKey:
     
 class CMD:
     CMDObj = Loader.loadConfig()['CMD']
-    CMD =  Loader.getPropByKey(CMDObj, 'CMD')
-    SEARCH = Loader.getPropByKey(CMDObj, 'SEARCH')
-    SLINK = Loader.getPropByKey(CMDObj, 'SLINK')
+    # CMD =  Loader.getPropByKey(CMDObj, 'CMD')
+    # SEARCH = Loader.getPropByKey(CMDObj, 'SEARCH')
+    # SLINK = Loader.getPropByKey(CMDObj, 'SLINK')
+    CMD =  "cmd"
+    SEARCH = "ggs"
+    SLINK = "slink"
+    OPEN_CHROME_LINK = "oclink"
     
     READ_NO = Loader.getPropByKey(CMDObj, 'READ_NO')
     READ_YES = Loader.getPropByKey(CMDObj, 'READ_YES')

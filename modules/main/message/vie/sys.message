@@ -18,4 +18,4 @@ enter-message = enter-message
 done = done!
 
 where-to-add = where-to-add
-ques-add-curr-key = ban co muon su dung key hien tai khong?
+ques-add-curr-key = ban co muon su dung key hien tai la {} khong?

@@ -1,4 +1,4 @@
-from this import d
+# from this import d
 import tkinter as tk
 from tkinter import scrolledtext
 
@@ -12,8 +12,6 @@ from main_module.common.static_value import *
 from main_module.common.constants import *
 from main_module.common.constants import *
 
-#TODO import all in folder
-# from modules.google_search.main import *
 
 botRes = Message.getBotResMessage()
 data = Message.getDataMessage()
@@ -26,20 +24,26 @@ class Application(tk.Frame):
 
     def create_widgets(self):
         self.txt_terminal = scrolledtext.ScrolledText(height=25, width=85)
-        self.txt_terminal.bind(CKey.KEY_EXC, self.on_execute)
+        # self.txt_terminal.bind(CKey.KEY_EXC, self.on_execute)
         self.txt_terminal.pack()
         self.txt_terminal.place(x=30, y=40)
-        printMessage(self, botRes[CSys.APP_FIRST_MESSAGE])
         
+        self.txt_input = tk.Entry(width=113)
+        self.contents_input1 = tk.StringVar()
+        self.txt_input["textvariable"] = self.contents_input1
+        self.txt_input.bind(CKey.KEY_EXC, self.on_execute)
+        self.txt_input.pack()
+        self.txt_input.place(x=30, y=450)
+        
+        printMessage(self, botRes[CSys.APP_FIRST_MESSAGE])
+        self.txt_input.focus()
     def on_execute(self, event = None):
-        cusResq = self.getLastRow()
+        cusResq = self.getMessageFromCus()
         key = deterCommand(cusResq, data)
         key_equals = deterCommandEquals(cusResq, data)
         print('prev key:'+ StaticVar.PREV_KEY)
-        #
         self.check_ans(key_equals)
         # ADD_MESAGE
-       
         if is_add_message_process(self, cusResq, key_equals, key) == True:
             return
         # ADD_COMMAND
@@ -49,54 +53,50 @@ class Application(tk.Frame):
         if not key or key == '':
             printMessage(self, botRes[CommandConstants.CMD_NOT_FOUND])
             return
-        if self.exc_with_key_equal(key, cusResq) == True:
-            return
-        
-        self.exc_with_key_in(key, cusResq)
+        if key_equals == "":
+            self.exc_with_key(key, cusResq)
+            print('exc in mode: IN')
+        else:
+            self.exc_with_key(key_equals, cusResq)
+            print('exc in mode: EQUALS')
+            
+         
     
-    def  exc_with_key_equal(self, key_equals, cusResq):
-        result = True
-        match key_equals:
+    def exc_with_key(self, key, cusResq):
+        match key:
             case CommandConstants.ADD_COMMAND_EXIST:
                 if StaticVar.PREV_KEY == "":
                     printMessage(self, botRes['where-to-add'])
                     return 
                 add_command(self, StaticVar.PREV_KEY)
-                StaticVar.PREV_KEY = key_equals
-                
+                StaticVar.PREV_KEY = key
             case CommandConstants.ADD_COMMAND_NEW:
                 printMessage(self, botRes['enter-key'])
-                StaticVar.PREV_KEY = key_equals
+                StaticVar.PREV_KEY = key
             case CommandConstants.ADD_MESSAGE:
-                self.caseAddMessage( key_equals)
+                self.caseAddMessage( key)
             case CommandConstants.ADD_MULT_MESSAGE:
-                self.caseAddMessage( key_equals)
-                
-            case _:
-                result = False
-        return result
-            
-          
-    def  exc_with_key_in(self, key, cusResq):
-        match key:
+                self.caseAddMessage(key)
             case CommandConstants.NEXT_RESULT:
                 if StaticVar.PREV_KEY == "":
                     printMessage(self, "???")
                     return 
                 StaticVar.CURRENT_INDEX_ARRLINK = StaticVar.CURRENT_INDEX_ARRLINK + 1
                 process(self, StaticVar.PREV_KEY, StaticVar.CURRENT_SEARCH_STR)
-                
             case _:
-                StaticVar.CURRENT_INDEX_ARRLINK = 0
-                StaticVar.CURRENT_SEARCH_STR = ''
-                process(self, key, cusResq)
-                StaticVar.PREV_KEY = key
+                self.searchGG(key, cusResq)
+        
+    def searchGG(self, key, cusResq):
+        StaticVar.CURRENT_INDEX_ARRLINK = 0
+        StaticVar.CURRENT_SEARCH_STR = ''
+        process(self, key, cusResq)
+        StaticVar.PREV_KEY = key   
         
     def caseAddMessage(self, key):
         if not StaticVar.PREV_KEY == "":
             MessageObj.key = StaticVar.PREV_KEY
             StaticVar.QUESING_MODE = ValStatic.QUESING_MODE_ADD_MESSAGE_KEY
-            printMessage(self, botRes['ques-add-curr-key'])
+            printMessage(self, botRes['ques-add-curr-key'].format(key))
         else:
             printMessage(self, botRes['enter-key'])
         StaticVar.PREV_KEY = key
@@ -109,12 +109,18 @@ class Application(tk.Frame):
                 StaticVar.ANS = False
         
     # txt_terminal
-    def getLastRow(self):
-        pos = self.txt_terminal.index('end-1c linestart')
-        pos = float(pos)
-        line = self.txt_terminal.get(pos, tk.END)
-        print('received CMD: '+line.strip()+".")
-        return line.strip()
+    def getMessageFromCus(self):
+        txtcmd = self.txt_input.get().strip()
+        printMessage(self, txtcmd)
+        self.txt_input.delete(0, tk.END)
+        self.txt_input.focus()
+        # self.txt_terminal.insert(tk.END, "PID not found or not a number : {}".format(txtcmd))
+        return txtcmd
+        # pos = self.txt_terminal.index('end-1c linestart')
+        # pos = float(pos)
+        # line = self.txt_terminal.get(pos, tk.END)
+        # print('received CMD: '+line.strip()+".")
+        # return line.strip()
 
 root = tk.Tk()
 app = Application(master=root)

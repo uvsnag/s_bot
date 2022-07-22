@@ -6,6 +6,7 @@ class CommandConstants:
     ADD_MULT_MESSAGE = "add-mult-message"
     CANCEL = "cancel"
     CMD_NOT_FOUND = "cmd-not-found"
+    WHAT_IS = "what-is"
     DONE = "done"
     
     ANS_YES = "ans-yes"

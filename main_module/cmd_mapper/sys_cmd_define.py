@@ -8,7 +8,7 @@ botRes = Message.getBotResMessage()
 def is_add_message_process(self, cusResq, key_equals, key):
     if StaticVar.PREV_KEY == CommandConstants.ADD_MESSAGE or  StaticVar.PREV_KEY == CommandConstants.ADD_MULT_MESSAGE:
         if key_equals == CommandConstants.DONE:
-            add_message_auto(self, True)
+            add_message_auto(self, True, key_equals)
             return True
         if StaticVar.QUESING_MODE == ValStatic.QUESING_MODE_ADD_MESSAGE_KEY:
             if StaticVar.ANS == False:
@@ -96,15 +96,15 @@ def add_command_auto(self):
     printMessage(self, botRes['done'])
     StaticVar.PREV_KEY = ""
     
-def add_message_auto(self, isEnd):
-    if MessageObj.message == "":
-        return
+def add_message_auto(self, isEnd, key_equals = None):
     clearQues()
-    str =  MessageObj.key+ " " + CKey.SEPR_MESS + " " + MessageObj.message 
-    urlFile = getCurrUrlFolder() + CSys.PATH_BOT_GEN_MESSAGE
-    writeFile(urlFile, 1, str)
+    if  not key_equals == CommandConstants.DONE:
+        str =  MessageObj.key+ " " + CKey.SEPR_MESS + " " + MessageObj.message 
+        urlFile = getCurrUrlFolder() + CSys.PATH_BOT_GEN_MESSAGE
+        writeFile(urlFile, 1, str)
     if StaticVar.PREV_KEY == CommandConstants.ADD_MULT_MESSAGE and isEnd == False:
         MessageObj.message = "" 
+        printMessage(self, botRes['enter-message'])
         return
     clearMessageObj()
     printMessage(self, botRes['done'])
@@ -122,10 +122,6 @@ def add_set_command_value():
         res = res + CKey.CMD_SPLIT_LV_1 + CommandObj.selector
     return res
  
-# def add_command_not_key(self):
-#     printMessage(self, 'this function not dev yet!')
-#     return
-
 
 def clearAddCMD():
     CommandObj.key = ""
