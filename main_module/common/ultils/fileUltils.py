@@ -1,8 +1,8 @@
 import configparser
 from main_module.conf.config_loader import *
 
-from main_module.ultils.commonUltils import *
-from main_module.common.static_value import *
+from main_module.common.ultils.commonUltils import *
+from main_module.common.static_var.static_value import *
 import codecs
 
 class Message:

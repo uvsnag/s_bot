@@ -1,16 +1,14 @@
 # from this import d
 import tkinter as tk
 from tkinter import scrolledtext
-
-
 from main_module.conf.config_loader import *
-from main_module.ultils.fileUltils import *
-from main_module.ultils.commonUltils import *
-from main_module.cmd_mapper.cmd_define import *
-from main_module.cmd_mapper.sys_cmd_define import *
-from main_module.common.static_value import *
-from main_module.common.constants import *
-from main_module.common.constants import *
+from main_module.common.ultils.fileUltils import *
+from main_module.common.ultils.commonUltils import *
+from main_module.cmd_mapper.cmd import *
+from main_module.cmd_mapper.sys import *
+from main_module.cmd_mapper.search_intenet import *
+from main_module.common.static_var.static_value import *
+from main_module.common.static_var.constants import *
 
 
 botRes = Message.getBotResMessage()
@@ -82,14 +80,14 @@ class Application(tk.Frame):
                     printMessage(self, "???")
                     return 
                 StaticVar.CURRENT_INDEX_ARRLINK = StaticVar.CURRENT_INDEX_ARRLINK + 1
-                process(self, StaticVar.PREV_KEY, StaticVar.CURRENT_SEARCH_STR)
+                self.process(StaticVar.PREV_KEY, StaticVar.CURRENT_SEARCH_STR)
             case _:
                 self.searchGG(key, cusResq)
         
     def searchGG(self, key, cusResq):
         StaticVar.CURRENT_INDEX_ARRLINK = 0
         StaticVar.CURRENT_SEARCH_STR = ''
-        process(self, key, cusResq)
+        self.process(key, cusResq)
         StaticVar.PREV_KEY = key   
         
     def caseAddMessage(self, key):
@@ -107,8 +105,18 @@ class Application(tk.Frame):
                 StaticVar.ANS = True
             if key_equals == CommandConstants.ANS_NO:
                 StaticVar.ANS = False
-        
-    # txt_terminal
+   
+    def process(self, key, cusResq):
+        arrCmd =  getAllCmdWKey(key, getArrAllModule(CSys.PATH_CMD)) 
+        first_cmd = arrCmd[0]
+        arr_cmd_detail = textToArray(first_cmd, CKey.CMD_SPLIT_LV_1)
+        cmd_type = arr_cmd_detail[0]
+        if cmd_type == CMD.CMD:
+            process_internet(self, arrCmd, cusResq)
+        else:
+            process_internet(self, arrCmd, cusResq)
+    
+    
     def getMessageFromCus(self):
         txtcmd = self.txt_input.get().strip()
         printMessage(self, txtcmd)

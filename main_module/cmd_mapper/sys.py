@@ -1,6 +1,6 @@
 from main_module.conf.config_loader import *
-from main_module.ultils.fileUltils import *
-from main_module.ultils.commonUltils import *
+from main_module.common.ultils.fileUltils import *
+from main_module.common.ultils.commonUltils import *
 from main_module.model.command import *
 botRes = Message.getBotResMessage()
 
