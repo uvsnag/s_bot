@@ -60,3 +60,45 @@ def getContentForSelector(html, seleStr, cmd_is_show_result):
                 if cmd_is_show_result == CMD.READ_YES:
                     resStr = resStr + results[int(i)].text +'\n'
     return resStr
+
+
+def searchGetContent(self, cusResq):
+    if len(StaticVar.LIST_LINK_SEARCH) == 0:
+        searchStr = cusResq[5: len(cusResq)]
+        StaticVar.LIST_LINK_SEARCH = getArrLinkFromSearch(searchStr)
+        print('list link:')
+        print(StaticVar.LIST_LINK_SEARCH)
+    if StaticVar.CURRENT_INDEX_ARRLINK >= len(StaticVar.LIST_LINK_SEARCH):
+        printMessage(self, botRes['nothing-more'])
+        return
+    print('curr link:')
+    print(StaticVar.LIST_LINK_SEARCH[StaticVar.CURRENT_INDEX_ARRLINK])
+    html = getContentFromLink(botRes, StaticVar.LIST_LINK_SEARCH[StaticVar.CURRENT_INDEX_ARRLINK])
+    resStr = getContent(html)
+    printMessage(self, str(resStr))
+    
+def getContent(html):
+    soup = BeautifulSoup(html, "html.parser")
+    # soup = soup.select('#content')
+    soup = getSoupHtmlWArrEle(soup)
+    soup = BeautifulSoup(str(soup), "html.parser")
+    soup = remove_tags(soup)
+    # soup = '\n'.join(soup.stripped_strings)
+    return soup
+    
+def remove_tags(soup):
+    for data in soup(['style', 'script', 'form', 'img', 'input', 'select', 'link']):
+        # Remove tags
+        data.decompose()
+    # return data by retrieving the tag content
+    # return '\n'.join(soup.stripped_strings)
+    return soup
+
+def getSoupHtmlWArrEle(soup):
+    for ele in StaticVar.LIST_ELE_GET_CONTENT:
+        soup = soup.select(ele)
+        if len(soup) >0:
+            print(soup)
+            return soup
+    return ""
+

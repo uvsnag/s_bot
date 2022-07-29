@@ -36,11 +36,11 @@ def textToArray(content, split):
     arr = content.split(deterChar)
     return arr
 
-def textToArray(content, split):
-    deterChar = '`'
-    content = content.replace(split, deterChar)
-    arr = content.split(deterChar)
-    return arr
+# def textToArray(content, split):
+#     deterChar = '`'
+#     content = content.replace(split, deterChar)
+#     arr = content.split(deterChar)
+#     return arr
 
 
 
@@ -108,6 +108,9 @@ def replaceStrWArr(arr, char,  str):
 def getCurrUrlFolder():
     directory = os.getcwd()
     return directory
+
+def formatStrWArrValue(str, arr):
+    return str.format(*arr)
 
 
     

@@ -41,6 +41,10 @@ class Application(tk.Frame):
         key_equals = deterCommandEquals(cusResq, data)
         print('prev key:'+ StaticVar.PREV_KEY)
         self.check_ans(key_equals)
+        
+        if (not key == CommandConstants.NEXT_RESULT):
+            StaticVar.CURRENT_INDEX_ARRLINK = 0
+            StaticVar.LIST_LINK_SEARCH = []
         # ADD_MESAGE
         if is_add_message_process(self, cusResq, key_equals, key) == True:
             return
@@ -76,16 +80,23 @@ class Application(tk.Frame):
             case CommandConstants.ADD_MULT_MESSAGE:
                 self.caseAddMessage(key)
             case CommandConstants.NEXT_RESULT:
+                StaticVar.CURRENT_INDEX_ARRLINK = StaticVar.CURRENT_INDEX_ARRLINK + 1
                 if StaticVar.PREV_KEY == "":
                     printMessage(self, "???")
                     return 
-                StaticVar.CURRENT_INDEX_ARRLINK = StaticVar.CURRENT_INDEX_ARRLINK + 1
-                self.process(StaticVar.PREV_KEY, StaticVar.CURRENT_SEARCH_STR)
+                elif StaticVar.PREV_KEY == CommandConstants.SEARCH_GET_CONTENT:
+                    searchGetContent(self, cusResq)
+                    return
+                else:
+                    self.process(StaticVar.PREV_KEY, StaticVar.CURRENT_SEARCH_STR)
+            case CommandConstants.SEARCH_GET_CONTENT:
+                searchGetContent(self, cusResq)
+                StaticVar.PREV_KEY = key
             case _:
                 self.searchGG(key, cusResq)
         
     def searchGG(self, key, cusResq):
-        StaticVar.CURRENT_INDEX_ARRLINK = 0
+        # StaticVar.CURRENT_INDEX_ARRLINK = 0
         StaticVar.CURRENT_SEARCH_STR = ''
         self.process(key, cusResq)
         StaticVar.PREV_KEY = key   
@@ -112,7 +123,7 @@ class Application(tk.Frame):
         arr_cmd_detail = textToArray(first_cmd, CKey.CMD_SPLIT_LV_1)
         cmd_type = arr_cmd_detail[0]
         if cmd_type == CMD.CMD:
-            process_internet(self, arrCmd, cusResq)
+            cmd_process(self, arrCmd, cusResq)
         else:
             process_internet(self, arrCmd, cusResq)
     

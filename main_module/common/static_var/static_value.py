@@ -8,10 +8,10 @@ class StaticVar:
     CURRENT_INDEX_ARRLINK = 0
     PREV_KEY = ""
     CURRENT_SEARCH_STR = ""
-    
     IS_CHANGE_COMMAND = False
-    
     QUESING_MODE = ValStatic.QUESING_MODE_NONE
     ANS = ""
     
+    LIST_LINK_SEARCH = []
+    LIST_ELE_GET_CONTENT = ['#content', 'article', '.content', '.contents']
     

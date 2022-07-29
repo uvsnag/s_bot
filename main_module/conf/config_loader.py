@@ -32,31 +32,6 @@ class Loader:
     
 # CONFIG
 
-class CKey:
-    CKey = Loader.loadConfig()['CKey']
-    KEY_EXC = '<Return>'
-    KEY_NEWLINE = '\n'
-    SEPR_MESS = Loader.getPropByKey(CKey, 'SEPR_MESS')
-    
-    CMD_SPLIT_LV_1 = Loader.getPropByKey(CKey, 'CMD_SPLIT_LV_1')
-    CMD_SPLIT_LV_2 = Loader.getPropByKey(CKey, 'CMD_SPLIT_LV_2')
-    CMD_SPLIT_LV_3 = Loader.getPropByKey(CKey, 'CMD_SPLIT_LV_3')
-    
-class CMD:
-    CMDObj = Loader.loadConfig()['CMD']
-    # CMD =  Loader.getPropByKey(CMDObj, 'CMD')
-    # SEARCH = Loader.getPropByKey(CMDObj, 'SEARCH')
-    # SLINK = Loader.getPropByKey(CMDObj, 'SLINK')
-    CMD =  "cmd"
-    SEARCH = "ggs"
-    SLINK = "slink"
-    OPEN_CHROME_LINK = "oclink"
-    
-    READ_NO = Loader.getPropByKey(CMDObj, 'READ_NO')
-    READ_YES = Loader.getPropByKey(CMDObj, 'READ_YES')
-    SPLIT_INDEX = Loader.getPropByKey(CMDObj, 'SPLIT_INDEX')
-    SPLIT_LINK = Loader.getPropByKey(CMDObj, 'SPLIT_LINK')
-    
 class CSys:
     CSys = Loader.loadConfig()['CSys']
     
@@ -67,13 +42,19 @@ class CSys:
     
     PATH_MODULE_ARR =  Loader.getPropByKey(CSys, 'PATH_MODULE_ARR')
     PATH_BOT_MESSAGE = Loader.getPropByKey(CSys, 'PATH_BOT_MESSAGE')
-    PATH_MESSAGE = "\message\\" + APP_LANG + "\data.ini"
     PATH_CMD = Loader.getPropByKey(CSys, 'PATH_CMD')
     PATH_BOT_GEN_CMD_MAPPER = Loader.getPropByKey(CSys, 'PATH_BOT_GEN_CMD_MAPPER')
-    PATH_BOT_GEN_MESSAGE = "\modules\\"+"bot_gen\message\\" + APP_LANG + "\data.ini"
     CHECK_ACCENT_VIETNAMESE = Loader.getPropByKey(CSys, 'CHECK_ACCENT_VIETNAMESE') 
     
-    ARR_CMD_NOT_CHECK_CASE_IN = ['ans-yes', "ans-no"]
+    # PATH_MESSAGE = "\message\\" + APP_LANG + "\data.ini"
+    # PATH_BOT_GEN_MESSAGE = "\modules\\"+"bot_gen\message\\" + APP_LANG + "\data.ini"
+    # PATH_CMD_OPEN = "\modules\\app_dir\\"
+    # ARR_CMD_NOT_CHECK_CASE_IN = ['ans-yes', "ans-no"]
+    
+    PATH_MESSAGE = str(Loader.getPropByKey(CSys, 'PATH_MESSAGE')).format(APP_LANG)
+    PATH_BOT_GEN_MESSAGE = str(Loader.getPropByKey(CSys, 'PATH_BOT_GEN_MESSAGE')).format(APP_LANG)
+    PATH_CMD_OPEN = Loader.getPropByKey(CSys, 'PATH_CMD_OPEN')
+    ARR_CMD_NOT_CHECK_CASE_IN = Loader.getPropByKey(CSys, 'ARR_CMD_NOT_CHECK_CASE_IN')
     
 class VSearch:
     VSearch = Loader.loadConfig()['VSearch']

@@ -36,6 +36,7 @@ def getGgleSearchInPage(searchStr, inPage):
             print("opening url:" +res)
             break
     return url
+
 def getAllGgleSearchInPageArr(searchStr, inPageArr):
     print("gg searching :"+searchStr)
     search_results = search(searchStr, start = CSearch.DEFAULT_START_RESULT, stop = CSearch.DEFAULT_NUM_RESULT, pause=2)
@@ -46,6 +47,14 @@ def getAllGgleSearchInPageArr(searchStr, inPageArr):
             urlArr.append(res)
             print("add url:" +res)
             break
+    return urlArr
+
+def getArrLinkFromSearch(searchStr):
+    print("gg searching :"+searchStr)
+    search_results = search(searchStr, start = CSearch.DEFAULT_START_RESULT, stop = CSearch.DEFAULT_NUM_RESULT, pause=2)
+    urlArr = []
+    for res in search_results:
+        urlArr.append(res)
     return urlArr
     
 def isLinkValid(url, arrPage):
