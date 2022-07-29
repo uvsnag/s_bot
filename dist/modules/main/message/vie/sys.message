@@ -1,0 +1,21 @@
+[bot-res]
+hello = chào
+cmd-accept = I will excute it now!
+cmd-done = cmd has been excuted!
+cmd-not-found = I can`t find anyting match with it
+access-denied = Access Denied
+nothing-more = hết rồi
+
+enter-key = enter-key
+enter-type = enter-type
+enter-show-flag = enter-show-flag
+enter-link = enter-link
+enter-selector = enter-selector
+ques-selector-more = ban co muon them nua khong?
+enter-selector-index = enter-selector-index
+enter-message = enter-message
+
+done = done!
+
+where-to-add = where-to-add
+ques-add-curr-key = ban co muon su dung key hien tai la {} khong?
