@@ -15,3 +15,7 @@ class StaticVar:
     LIST_LINK_SEARCH = []
     LIST_ELE_GET_CONTENT = ['#content', 'article', '.content', '.contents']
     
+    LIST_COMMAND_OLD = []
+    MAX_SAVE_COMMAND = 50
+    INDEX_LIST_COMMAND_OLD = 0
+    COMMAND_OLD_FLAG = True

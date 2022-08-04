@@ -30,6 +30,8 @@ class Application(tk.Frame):
         self.contents_input1 = tk.StringVar()
         self.txt_input["textvariable"] = self.contents_input1
         self.txt_input.bind(CKey.KEY_EXC, self.on_execute)
+        self.txt_input.bind('<Up>', self.showOldCommand)
+        self.txt_input.bind('<Down>', self.showOldCommand)
         self.txt_input.pack()
         self.txt_input.place(x=30, y=450)
         
@@ -37,6 +39,10 @@ class Application(tk.Frame):
         self.txt_input.focus()
     def on_execute(self, event = None):
         cusResq = self.getMessageFromCus()
+        StaticVar.LIST_COMMAND_OLD.append(cusResq)
+        StaticVar.INDEX_LIST_COMMAND_OLD = len(StaticVar.LIST_COMMAND_OLD)
+        StaticVar.COMMAND_OLD_FLAG = True
+        
         key = deterCommand(cusResq, data)
         key_equals = deterCommandEquals(cusResq, data)
         print('prev key:'+ StaticVar.PREV_KEY)
@@ -141,6 +147,30 @@ class Application(tk.Frame):
         # print('received CMD: '+line.strip()+".")
         # return line.strip()
 
+    def showOldCommand(self, event = None):
+        if event.keysym == 'Up':
+            StaticVar.INDEX_LIST_COMMAND_OLD = StaticVar.INDEX_LIST_COMMAND_OLD - 1
+        if event.keysym == 'Down':
+            StaticVar.INDEX_LIST_COMMAND_OLD = StaticVar.INDEX_LIST_COMMAND_OLD + 1
+            
+        if StaticVar.INDEX_LIST_COMMAND_OLD < 0:
+            StaticVar.INDEX_LIST_COMMAND_OLD = 0
+        if StaticVar.INDEX_LIST_COMMAND_OLD >= len(StaticVar.LIST_COMMAND_OLD):
+            StaticVar.INDEX_LIST_COMMAND_OLD = len(StaticVar.LIST_COMMAND_OLD) -1
+        
+        if StaticVar.COMMAND_OLD_FLAG == True and event.keysym == 'Up':
+            print("List old command:")
+            print(StaticVar.LIST_COMMAND_OLD)
+            txtcmd = self.txt_input.get().strip()
+            if len(txtcmd):
+                StaticVar.LIST_COMMAND_OLD.append(txtcmd)
+            StaticVar.COMMAND_OLD_FLAG = False
+            
+        cmd = StaticVar.LIST_COMMAND_OLD[StaticVar.INDEX_LIST_COMMAND_OLD]
+        self.txt_input.delete(0, tk.END)
+        self.txt_input.insert(tk.END, cmd)
+        self.txt_input.focus()
+        
 root = tk.Tk()
 app = Application(master=root)
 app.master.title(CSys.APP_NAME)
