@@ -39,9 +39,8 @@ class Application(tk.Frame):
         self.txt_input.focus()
     def on_execute(self, event = None):
         cusResq = self.getMessageFromCus()
-        StaticVar.LIST_COMMAND_OLD.append(cusResq)
-        StaticVar.INDEX_LIST_COMMAND_OLD = len(StaticVar.LIST_COMMAND_OLD)
-        StaticVar.COMMAND_OLD_FLAG = True
+        
+        self.saveCmdProcess(cusResq)
         
         key = deterCommand(cusResq, data)
         key_equals = deterCommandEquals(cusResq, data)
@@ -68,8 +67,6 @@ class Application(tk.Frame):
             self.exc_with_key(key_equals, cusResq)
             print('exc in mode: EQUALS')
             
-         
-    
     def exc_with_key(self, key, cusResq):
         match key:
             case CommandConstants.ADD_COMMAND_EXIST:
@@ -170,6 +167,16 @@ class Application(tk.Frame):
         self.txt_input.delete(0, tk.END)
         self.txt_input.insert(tk.END, cmd)
         self.txt_input.focus()
+        
+        
+    def saveCmdProcess(self, cusResq):
+        StaticVar.LIST_COMMAND_OLD.append(cusResq)
+        StaticVar.INDEX_LIST_COMMAND_OLD = len(StaticVar.LIST_COMMAND_OLD)
+        StaticVar.COMMAND_OLD_FLAG = True
+        if(len(StaticVar.LIST_COMMAND_OLD) > CSys.MAX_SAVE_COMMAND):
+           StaticVar.LIST_COMMAND_OLD.pop(0)
+        
+        
         
 root = tk.Tk()
 app = Application(master=root)

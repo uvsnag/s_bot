@@ -55,6 +55,7 @@ class CSys:
     PATH_BOT_GEN_MESSAGE = str(Loader.getPropByKey(CSys, 'PATH_BOT_GEN_MESSAGE')).format(APP_LANG)
     PATH_CMD_OPEN = Loader.getPropByKey(CSys, 'PATH_CMD_OPEN')
     ARR_CMD_NOT_CHECK_CASE_IN = Loader.getPropByKey(CSys, 'ARR_CMD_NOT_CHECK_CASE_IN')
+    MAX_SAVE_COMMAND = Loader.getPropByKey(CSys, 'MAX_SAVE_COMMAND')
     
 class VSearch:
     VSearch = Loader.loadConfig()['VSearch']
