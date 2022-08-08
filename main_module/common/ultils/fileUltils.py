@@ -4,6 +4,8 @@ from main_module.conf.config_loader import *
 from main_module.common.ultils.commonUltils import *
 from main_module.common.static_var.static_value import *
 import codecs
+import getpass
+USER_NAME = getpass.getuser()
 
 class Message:
     def getBotResMessage():
@@ -73,7 +75,15 @@ def getValueMess(cmd):
     value = cmd[indexOfSep+1:lastIndex]
     return value.strip()
 
-
+def add_to_startup(file_path=""):
+    if file_path == "":
+        file_path = getCurrUrlFolder() + '\modules\\app_dir\static\s_bot.lnk'
+        print(file_path)
+    bat_path = r'C:\Users\%s\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup' % USER_NAME
+    with open(bat_path + '\\' + CSys.APP_NAME + ".bat", "w+") as bat_file:
+        bat_file.write(r'start "" "%s"' % file_path)    
+    print('done!')
+            
 # write file
 
 def writeFile(urlFile, line, content):

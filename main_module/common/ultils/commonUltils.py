@@ -112,5 +112,19 @@ def getCurrUrlFolder():
 def formatStrWArrValue(str, arr):
     return str.format(*arr)
 
+def genStrIndex(limitNum, split = ','):
+    flag = False
+    resStr = ''
+    i = 0
+    while i < limitNum:
+        if flag == False:
+            resStr = resStr + str(i)
+            flag = True
+        else:
+            resStr = resStr + split + str(i)
+        i=i+1
+    print('selector index gen:')
+    print(resStr)
+    return resStr
 
     

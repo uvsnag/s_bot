@@ -40,10 +40,9 @@ def getContentFromLink(botRes, url):
     if isStrContainArr(VSearch.ARR_ACCESS_DENIED, html):
        print(html)
        return botRes['access-denied']
-    # print(html)
     return html
 
-def getContentForSelector(html, seleStr, cmd_is_show_result):
+def getContentForSelector(html, seleStr, cmd_is_show_result, newLine = '\n'):
     #arrCmdMatch ->  #mw-content-text .mw-parser-output > p'*'0,1,2,3
     resStr = ''
     soup = BeautifulSoup(html, "html.parser")
@@ -51,14 +50,17 @@ def getContentForSelector(html, seleStr, cmd_is_show_result):
     sel_poiter = arr_sele[0]
     sel_index_arr = [0]
     if len(arr_sele)>1:
-        sel_index_arr = textToArray(arr_sele[1], CMD.SPLIT_INDEX)
+        strIndex = arr_sele[1]
+        if strIndex == CMD.SELECTOR_IND_ALL:
+            strIndex = genStrIndex(CSearch.DEFAULT_NUM_NEWS)
+        sel_index_arr = textToArray(strIndex, CMD.SPLIT_INDEX)
     print('searching content with selector:' + sel_poiter)
     results = soup.select(sel_poiter)
     if len(results) > 0:
         for i in sel_index_arr:
             if int(i) < len(results):
                 if cmd_is_show_result == CMD.READ_YES:
-                    resStr = resStr + results[int(i)].text +'\n'
+                    resStr = resStr + results[int(i)].text.strip() + newLine
     return resStr
 
 

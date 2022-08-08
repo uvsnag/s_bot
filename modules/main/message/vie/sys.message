@@ -1,5 +1,5 @@
 [bot-res]
-hello = chào
+hello = --------------------
 cmd-accept = I will excute it now!
 cmd-done = cmd has been excuted!
 cmd-not-found = I can`t find anyting match with it

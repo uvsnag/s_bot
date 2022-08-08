@@ -7,8 +7,10 @@ from main_module.common.ultils.commonUltils import *
 from main_module.cmd_mapper.cmd import *
 from main_module.cmd_mapper.sys import *
 from main_module.cmd_mapper.search_intenet import *
+from main_module.cmd_mapper.init_cmd import *
 from main_module.common.static_var.static_value import *
 from main_module.common.static_var.constants import *
+
 
 
 botRes = Message.getBotResMessage()
@@ -36,7 +38,10 @@ class Application(tk.Frame):
         self.txt_input.place(x=30, y=450)
         
         printMessage(self, botRes[CSys.APP_FIRST_MESSAGE])
+        self.initExc()
         self.txt_input.focus()
+        
+        
     def on_execute(self, event = None):
         cusResq = self.getMessageFromCus()
         
@@ -64,11 +69,16 @@ class Application(tk.Frame):
             self.exc_with_key(key, cusResq)
             print('exc in mode: IN')
         else:
-            self.exc_with_key(key_equals, cusResq)
+            self.exc_with_key(key_equals, cusResq, True)
             print('exc in mode: EQUALS')
             
-    def exc_with_key(self, key, cusResq):
+    def exc_with_key(self, key, cusResq, justForKeyEqual = False):
         match key:
+            case CommandConstants.START_WITH_WINDOWS:
+                if justForKeyEqual == True:
+                    add_to_startup()
+            
+            ####
             case CommandConstants.ADD_COMMAND_EXIST:
                 if StaticVar.PREV_KEY == "":
                     printMessage(self, botRes['where-to-add'])
@@ -175,8 +185,12 @@ class Application(tk.Frame):
         StaticVar.COMMAND_OLD_FLAG = True
         if(len(StaticVar.LIST_COMMAND_OLD) > CSys.MAX_SAVE_COMMAND):
            StaticVar.LIST_COMMAND_OLD.pop(0)
-        
-        
+           
+    def initExc(self):
+        getNewsGlobal(self)
+        getScheduleFootball(self)
+        self.process('snv-init', '')
+        print()
         
 root = tk.Tk()
 app = Application(master=root)

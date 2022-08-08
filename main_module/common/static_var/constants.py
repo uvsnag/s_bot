@@ -8,8 +8,10 @@ class CommandConstants:
     CMD_NOT_FOUND = "cmd-not-found"
     WHAT_IS = "what-is"
     SEARCH_GET_CONTENT = "search-get-content"
-    DONE = "done"
+    START_WITH_WINDOWS = "start-with-window"
     
+    
+    DONE = "done"
     ANS_YES = "ans-yes"
     ANS_NO = "ans-no"
     
@@ -36,4 +38,6 @@ class CMD:
     READ_YES = "1"
     SPLIT_INDEX = ","
     SPLIT_LINK = ","
+    
+    SELECTOR_IND_ALL = 'all'
     

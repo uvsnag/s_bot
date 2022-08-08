@@ -7,7 +7,7 @@ pip install google
 # build to app.exe
 pip install pyinstaller
 
-pyinstaller --onefile app.py // one file .exe with console
-pyinstaller --onefile -w app.py //one file .exe, no console
-pyinstaller --noconsole app.py // one folder constain multi file, no console# python_cmd
+pyinstaller --onefile s_bot.py // one file .exe with console
+pyinstaller --onefile -w App.py //one file .exe, no console
+pyinstaller --noconsole s_bot.py // one folder constain multi file, no console# python_cmd
 

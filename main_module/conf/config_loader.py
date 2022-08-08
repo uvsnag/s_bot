@@ -56,6 +56,7 @@ class CSys:
     PATH_CMD_OPEN = Loader.getPropByKey(CSys, 'PATH_CMD_OPEN')
     ARR_CMD_NOT_CHECK_CASE_IN = Loader.getPropByKey(CSys, 'ARR_CMD_NOT_CHECK_CASE_IN')
     MAX_SAVE_COMMAND = Loader.getPropByKey(CSys, 'MAX_SAVE_COMMAND')
+    MAX_SAVE_COMMAND = Loader.getPropByKey(CSys, 'MAX_SAVE_COMMAND')
     
 class VSearch:
     VSearch = Loader.loadConfig()['VSearch']
@@ -66,4 +67,5 @@ class CSearch:
     DEFAULT_START_RESULT = Loader.getPropByKey(CSearch, 'DEFAULT_START_RESULT')
     DEFAULT_NUM_RESULT = Loader.getPropByKey(CSearch, 'DEFAULT_NUM_RESULT')
     DEFAULT_CHOOSE_LINK = Loader.getPropByKey(CSearch, 'DEFAULT_CHOOSE_LINK')
+    DEFAULT_NUM_NEWS = Loader.getPropByKey(CSearch, 'DEFAULT_NUM_NEWS')
     
