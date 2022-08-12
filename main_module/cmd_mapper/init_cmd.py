@@ -60,7 +60,7 @@ def getScheduleFootballToday(self):
     printMessage(self, '===================')
     printMessage(self, "Lịch thi đấu hôm nay")
     arrCmd =  getAllCmdWKey('schedule-football-today', getArrAllModule(CSys.PATH_CMD)) 
-    
+    arr_except = ['Hạng nhất Việt Nam']
     arr_cmd_detail = textToArray(arrCmd[0], CKey.CMD_SPLIT_LV_1)
     cmd_is_show_result = arr_cmd_detail[1]
     cmd_link = arr_cmd_detail[2]
@@ -73,13 +73,13 @@ def getScheduleFootballToday(self):
     if len(results) > 0:
          for item in results:
              soup2 = BeautifulSoup(str(item), "html.parser")
-             
-             if isStrContainArr(VSearch.ARR_LEAGUE_TODAY, str(soup2.select(arr_cmd_selector[1]))):  
-                 printMessage(self, '===================')
-                 printMessage(self, str(soup2.select(arr_cmd_selector[1])[0].text.strip()))
-                 
-                 items = soup2.select(arr_cmd_selector[2])
-                 for item2 in items:
-                     printMessage(self, str(item2.text.strip()))
+             infor = str(soup2.select(arr_cmd_selector[1])[0].text.strip())
+             if isStrContainArr(VSearch.ARR_LEAGUE_TODAY, infor):
+                 if not isStrContainArr(arr_except, infor):
+                    printMessage(self, '===================')
+                    printMessage(self, infor)
+                    items = soup2.select(arr_cmd_selector[2])
+                    for item2 in items:
+                        printMessage(self, str(item2.text.strip()))
 
 

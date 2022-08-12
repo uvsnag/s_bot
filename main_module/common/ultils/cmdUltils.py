@@ -90,9 +90,9 @@ def isSameTypeCmd(arrCmd):
     # voice
 def speak(text):
     CSysv = Loader.loadConfig()['CSys']
-    CSys.IS_READ = Loader.getPropByKey(CSysv, 'IS_READ')
+    CSys.USE_READ = Loader.getPropByKey(CSysv, 'USE_READ')
     
-    if CSys.IS_READ == True:
+    if CSys.USE_READ == True:
         currThread =  threading.enumerate()
         while len(currThread) > 1:
             time.sleep(1)
@@ -109,16 +109,28 @@ def speakProcess(text):
     playsound.playsound(filename, True)
     os.remove(filename)
     
-    #####################################
+#####################################
 import speech_recognition as sr
 import pyaudio
 def listen():
-    r = sr.Recognizer()
-    with sr.Microphone() as source:
-        print("Mời bạn nói: ")
-        audio = r.listen(source)
-        try:
-            text = r.recognize_google(audio,language="vi-VI")
-            print("Bạn -->: {}".format(text))
-        except:
-            print("Xin lỗi! tôi không nhận được voice!")
+    CSysv = Loader.loadConfig()['CSys']
+    CSys.USE_RECOGN_VOICE = Loader.getPropByKey(CSysv, 'USE_RECOGN_VOICE')
+    if CSys.USE_RECOGN_VOICE == True:
+        t2 = threading.Thread(target=listenProcess)
+        t2.setName('listener')
+        t2.start()
+        
+def listenProcess():
+    init_rec = sr.Recognizer()
+    micro = sr.Microphone()
+    print("Listener is listening...")
+    with micro as source:
+        print("ewqw")
+        audio_data = init_rec.record(source, duration=5)
+        print("Recognizing your text.............")
+        text = init_rec.recognize_google(audio_data)
+        print(text)
+        
+            
+            
+   

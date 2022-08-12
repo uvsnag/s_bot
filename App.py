@@ -4,6 +4,7 @@ from tkinter import scrolledtext
 from main_module.conf.config_loader import *
 from main_module.common.ultils.fileUltils import *
 from main_module.common.ultils.commonUltils import *
+from main_module.common.ultils.cmdUltils import *
 from main_module.cmd_mapper.cmd import *
 from main_module.cmd_mapper.sys import *
 from main_module.cmd_mapper.search_intenet import *
@@ -208,4 +209,5 @@ app.master.title(CSys.APP_NAME)
 app.master.minsize(750, 500)
 app.update()
 app.initExc()
+#listen()
 app.mainloop()

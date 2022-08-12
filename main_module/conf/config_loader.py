@@ -36,7 +36,7 @@ class Loader:
         CSys.APP_LANG = Loader.getPropByKey(CSysv, 'APP_LANG')
         CSys.APP_FIRST_MESSAGE = Loader.getPropByKey(CSysv, 'APP_FIRST_MESSAGE')
         CSys.APP_ENCODE = Loader.getPropByKey(CSysv, 'APP_ENCODE')
-        CSys.IS_READ = Loader.getPropByKey(CSysv, 'IS_READ')
+        CSys.USE_READ = Loader.getPropByKey(CSysv, 'USE_READ')
         CSys.PATH_MODULE_ARR =  Loader.getPropByKey(CSysv, 'PATH_MODULE_ARR')
         CSys.PATH_BOT_MESSAGE = Loader.getPropByKey(CSysv, 'PATH_BOT_MESSAGE')
         CSys.PATH_CMD = Loader.getPropByKey(CSysv, 'PATH_CMD')
@@ -65,7 +65,8 @@ class CSys:
     APP_LANG = Loader.getPropByKey(CSys, 'APP_LANG')
     APP_FIRST_MESSAGE = Loader.getPropByKey(CSys, 'APP_FIRST_MESSAGE')
     APP_ENCODE = Loader.getPropByKey(CSys, 'APP_ENCODE')
-    IS_READ = Loader.getPropByKey(CSys, 'IS_READ')
+    USE_READ = Loader.getPropByKey(CSys, 'USE_READ')
+    USE_RECOGN_VOICE = Loader.getPropByKey(CSys, 'USE_RECOGN_VOICE')
     
     PATH_MODULE_ARR =  Loader.getPropByKey(CSys, 'PATH_MODULE_ARR')
     PATH_BOT_MESSAGE = Loader.getPropByKey(CSys, 'PATH_BOT_MESSAGE')

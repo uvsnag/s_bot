@@ -5,8 +5,9 @@ pip install beautifulsoup4
 pip install google
 
 # sound
-pip install SpeechRecognition
+pip install SpeechRecognition/??
 pip install pyaudio
+pip install websockets
 
 pip install gTTS
 pip install playsound==1.2.2

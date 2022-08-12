@@ -32,6 +32,8 @@ class CKey:
     CMD_SPLIT_LV_2 = "'^'"
     CMD_SPLIT_LV_3 = "'*'"
     
+    KEY_EXCEPT = '>'
+    
 class CMD:
     CMD =  "cmd"
     SEARCH = "ggs"
