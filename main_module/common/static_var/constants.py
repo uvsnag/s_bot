@@ -10,6 +10,10 @@ class CommandConstants:
     SEARCH_GET_CONTENT = "search-get-content"
     START_WITH_WINDOWS = "start-with-window"
     
+    GET_NEWS = "get-news"
+    SCHEDULE_FOOTBALL = "schedule-football"
+    SCHEDULE_FOOTBALL_TODAY = "schedule-football-today"
+    
     
     DONE = "done"
     ANS_YES = "ans-yes"
@@ -32,10 +36,12 @@ class CMD:
     CMD =  "cmd"
     SEARCH = "ggs"
     SLINK = "slink"
+    SCUS = "scus"
     OPEN_CHROME_LINK = "oclink"
     
     READ_NO = "0"
     READ_YES = "1"
+    READ_LISTEN_YES = "2"
     SPLIT_INDEX = ","
     SPLIT_LINK = ","
     

@@ -38,11 +38,11 @@ class Application(tk.Frame):
         self.txt_input.place(x=30, y=450)
         
         printMessage(self, botRes[CSys.APP_FIRST_MESSAGE])
-        self.initExc()
         self.txt_input.focus()
         
         
     def on_execute(self, event = None):
+        Loader.reloadConfig()
         cusResq = self.getMessageFromCus()
         
         self.saveCmdProcess(cusResq)
@@ -132,13 +132,24 @@ class Application(tk.Frame):
    
     def process(self, key, cusResq):
         arrCmd =  getAllCmdWKey(key, getArrAllModule(CSys.PATH_CMD)) 
+        if len(arrCmd) < 1:
+            return
         first_cmd = arrCmd[0]
         arr_cmd_detail = textToArray(first_cmd, CKey.CMD_SPLIT_LV_1)
         cmd_type = arr_cmd_detail[0]
         if cmd_type == CMD.CMD:
             cmd_process(self, arrCmd, cusResq)
         else:
-            process_internet(self, arrCmd, cusResq)
+            if cmd_type == CMD.SCUS:
+                  match key:
+                    case CommandConstants.GET_NEWS:
+                        getNewsGlobal(self)
+                    case CommandConstants.SCHEDULE_FOOTBALL:
+                        getScheduleFootball(self)
+                    case CommandConstants.SCHEDULE_FOOTBALL_TODAY:
+                        getScheduleFootballToday(self)
+            else:
+                process_internet(self, arrCmd, cusResq)
     
     
     def getMessageFromCus(self):
@@ -146,7 +157,6 @@ class Application(tk.Frame):
         printMessage(self, txtcmd)
         self.txt_input.delete(0, tk.END)
         self.txt_input.focus()
-        # self.txt_terminal.insert(tk.END, "PID not found or not a number : {}".format(txtcmd))
         return txtcmd
         # pos = self.txt_terminal.index('end-1c linestart')
         # pos = float(pos)
@@ -189,11 +199,13 @@ class Application(tk.Frame):
     def initExc(self):
         getNewsGlobal(self)
         getScheduleFootball(self)
+        getScheduleFootballToday(self)
         self.process('snv-init', '')
-        print()
         
 root = tk.Tk()
 app = Application(master=root)
 app.master.title(CSys.APP_NAME)
 app.master.minsize(750, 500)
+app.update()
+app.initExc()
 app.mainloop()

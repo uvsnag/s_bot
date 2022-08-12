@@ -127,4 +127,3 @@ def genStrIndex(limitNum, split = ','):
     print(resStr)
     return resStr
 
-    

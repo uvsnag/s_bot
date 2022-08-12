@@ -6,16 +6,26 @@ from main_module.conf.config_loader import *
 from googlesearch import search
 from main_module.common.static_var.static_value import *
 from main_module.common.static_var.constants import *
+from gtts import gTTS
+import playsound
+import datetime
+from threading import Thread
+import threading
+import time
 
-def printTerminal(self,arrCmd, message):
-    if arrCmd[1] == CMD.READ_YES:
+def printTerminal(self, mode, message):
+    if mode == CMD.READ_YES:
         printMessage(self, message)
+    if mode == CMD.READ_LISTEN_YES:
+        printMessage(self, message)
+        speak(message)
         
 def printMessage(self, message):
     message=  '\n' + message + '\n'
     self.txt_terminal.insert(tk.END, message)
     self.txt_terminal.see(tk.END)
     self.txt_input.focus()
+    self.update()
             
 def exc_cmd(cmd):
     if not cmd:
@@ -76,3 +86,39 @@ def getArrElementCmd(arr, indexArr):
 def isSameTypeCmd(arrCmd):
     arrType = getArrElementCmd(arrCmd, 1)
     return len(arrType) <= 1
+
+    # voice
+def speak(text):
+    CSysv = Loader.loadConfig()['CSys']
+    CSys.IS_READ = Loader.getPropByKey(CSysv, 'IS_READ')
+    
+    if CSys.IS_READ == True:
+        currThread =  threading.enumerate()
+        while len(currThread) > 1:
+            time.sleep(1)
+            currThread =  threading.enumerate()
+        t1 = threading.Thread(target=speakProcess, args=(text,))
+        t1.setName('speaker')
+        t1.start()
+        
+def speakProcess(text):
+    date_string = datetime.datetime.now().strftime("%d%m%Y%H%M%S")
+    filename = "voice"+date_string+".mp3"
+    output = gTTS(text,lang="vi", slow=False)
+    output.save(filename)
+    playsound.playsound(filename, True)
+    os.remove(filename)
+    
+    #####################################
+import speech_recognition as sr
+import pyaudio
+def listen():
+    r = sr.Recognizer()
+    with sr.Microphone() as source:
+        print("Mời bạn nói: ")
+        audio = r.listen(source)
+        try:
+            text = r.recognize_google(audio,language="vi-VI")
+            print("Bạn -->: {}".format(text))
+        except:
+            print("Xin lỗi! tôi không nhận được voice!")

@@ -14,7 +14,7 @@ def cmd_process(self, arrCmd, cusResq):
         cmdStr=str(cmd_content).format(*arrVar)
         res = exc_cmd(cmdStr)
         print(cmdStr)
-        printTerminal(self, arr_cmd_detail, res)
+        printTerminal(self, arr_cmd_detail[1], res)
         
         
 def getArrVarValue(varListStr):

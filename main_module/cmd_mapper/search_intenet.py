@@ -59,7 +59,7 @@ def getContentForSelector(html, seleStr, cmd_is_show_result, newLine = '\n'):
     if len(results) > 0:
         for i in sel_index_arr:
             if int(i) < len(results):
-                if cmd_is_show_result == CMD.READ_YES:
+                if cmd_is_show_result == CMD.READ_YES or cmd_is_show_result == CMD.READ_LISTEN_YES:
                     resStr = resStr + results[int(i)].text.strip() + newLine
     return resStr
 

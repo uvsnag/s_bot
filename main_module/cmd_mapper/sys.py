@@ -3,6 +3,8 @@ from main_module.common.ultils.fileUltils import *
 from main_module.common.ultils.commonUltils import *
 from main_module.common.ultils.cmdUltils import *
 from main_module.model.command import *
+
+
 botRes = Message.getBotResMessage()
 
 
@@ -138,3 +140,4 @@ def clearMessageObj():
 def clearQues():
     StaticVar.QUESING_MODE = ValStatic.QUESING_MODE_NONE
     StaticVar.ANS = ""
+    

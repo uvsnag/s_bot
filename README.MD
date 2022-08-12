@@ -4,10 +4,17 @@ $ pip install configparser
 pip install beautifulsoup4
 pip install google
 
+# sound
+pip install SpeechRecognition
+pip install pyaudio
+
+pip install gTTS
+pip install playsound==1.2.2
+
 # build to app.exe
 pip install pyinstaller
 
-pyinstaller --onefile s_bot.py // one file .exe with console
+pyinstaller --onefile App.py // one file .exe with console
 pyinstaller --onefile -w App.py //one file .exe, no console
-pyinstaller --noconsole s_bot.py // one folder constain multi file, no console# python_cmd
+pyinstaller --noconsole App.py // one folder constain multi file, no console# python_cmd
 

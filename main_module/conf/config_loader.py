@@ -30,6 +30,32 @@ class Loader:
         # print(type(value))
         return value
     
+    def reloadConfig():
+        CSysv = Loader.loadConfig()['CSys']
+        CSys.APP_NAME = Loader.getPropByKey(CSysv, 'APP_NAME')
+        CSys.APP_LANG = Loader.getPropByKey(CSysv, 'APP_LANG')
+        CSys.APP_FIRST_MESSAGE = Loader.getPropByKey(CSysv, 'APP_FIRST_MESSAGE')
+        CSys.APP_ENCODE = Loader.getPropByKey(CSysv, 'APP_ENCODE')
+        CSys.IS_READ = Loader.getPropByKey(CSysv, 'IS_READ')
+        CSys.PATH_MODULE_ARR =  Loader.getPropByKey(CSysv, 'PATH_MODULE_ARR')
+        CSys.PATH_BOT_MESSAGE = Loader.getPropByKey(CSysv, 'PATH_BOT_MESSAGE')
+        CSys.PATH_CMD = Loader.getPropByKey(CSysv, 'PATH_CMD')
+        CSys.PATH_BOT_GEN_CMD_MAPPER = Loader.getPropByKey(CSysv, 'PATH_BOT_GEN_CMD_MAPPER')
+        CSys.CHECK_ACCENT_VIETNAMESE = Loader.getPropByKey(CSysv, 'CHECK_ACCENT_VIETNAMESE') 
+        CSys.PATH_MESSAGE = str(Loader.getPropByKey(CSysv, 'PATH_MESSAGE')).format(CSys.APP_LANG)
+        CSys.PATH_BOT_GEN_MESSAGE = str(Loader.getPropByKey(CSysv, 'PATH_BOT_GEN_MESSAGE')).format(CSys.APP_LANG)
+        CSys.PATH_CMD_OPEN = Loader.getPropByKey(CSysv, 'PATH_CMD_OPEN')
+        CSys.ARR_CMD_NOT_CHECK_CASE_IN = Loader.getPropByKey(CSysv, 'ARR_CMD_NOT_CHECK_CASE_IN')
+        CSys.MAX_SAVE_COMMAND = Loader.getPropByKey(CSysv, 'MAX_SAVE_COMMAND')
+        VSearchv = Loader.loadConfig()['VSearch']
+        VSearch.ARR_LEAGUE_TODAY = Loader.getPropByKey(VSearchv, 'ARR_LEAGUE_TODAY')
+        VSearch.ARR_ACCESS_DENIED = Loader.getPropByKey(VSearchv, 'ARR_ACCESS_DENIED')
+        CSearchv = Loader.loadConfig()['CSearch']
+        CSearch.DEFAULT_START_RESULT = Loader.getPropByKey(CSearchv, 'DEFAULT_START_RESULT')
+        CSearch.DEFAULT_NUM_RESULT = Loader.getPropByKey(CSearchv, 'DEFAULT_NUM_RESULT')
+        CSearch.DEFAULT_CHOOSE_LINK = Loader.getPropByKey(CSearchv, 'DEFAULT_CHOOSE_LINK')
+        CSearch.DEFAULT_NUM_NEWS = Loader.getPropByKey(CSearchv, 'DEFAULT_NUM_NEWS')
+   
 # CONFIG
 
 class CSys:
@@ -39,6 +65,7 @@ class CSys:
     APP_LANG = Loader.getPropByKey(CSys, 'APP_LANG')
     APP_FIRST_MESSAGE = Loader.getPropByKey(CSys, 'APP_FIRST_MESSAGE')
     APP_ENCODE = Loader.getPropByKey(CSys, 'APP_ENCODE')
+    IS_READ = Loader.getPropByKey(CSys, 'IS_READ')
     
     PATH_MODULE_ARR =  Loader.getPropByKey(CSys, 'PATH_MODULE_ARR')
     PATH_BOT_MESSAGE = Loader.getPropByKey(CSys, 'PATH_BOT_MESSAGE')
@@ -46,20 +73,16 @@ class CSys:
     PATH_BOT_GEN_CMD_MAPPER = Loader.getPropByKey(CSys, 'PATH_BOT_GEN_CMD_MAPPER')
     CHECK_ACCENT_VIETNAMESE = Loader.getPropByKey(CSys, 'CHECK_ACCENT_VIETNAMESE') 
     
-    # PATH_MESSAGE = "\message\\" + APP_LANG + "\data.ini"
-    # PATH_BOT_GEN_MESSAGE = "\modules\\"+"bot_gen\message\\" + APP_LANG + "\data.ini"
-    # PATH_CMD_OPEN = "\modules\\app_dir\\"
-    # ARR_CMD_NOT_CHECK_CASE_IN = ['ans-yes', "ans-no"]
     
     PATH_MESSAGE = str(Loader.getPropByKey(CSys, 'PATH_MESSAGE')).format(APP_LANG)
     PATH_BOT_GEN_MESSAGE = str(Loader.getPropByKey(CSys, 'PATH_BOT_GEN_MESSAGE')).format(APP_LANG)
     PATH_CMD_OPEN = Loader.getPropByKey(CSys, 'PATH_CMD_OPEN')
     ARR_CMD_NOT_CHECK_CASE_IN = Loader.getPropByKey(CSys, 'ARR_CMD_NOT_CHECK_CASE_IN')
     MAX_SAVE_COMMAND = Loader.getPropByKey(CSys, 'MAX_SAVE_COMMAND')
-    MAX_SAVE_COMMAND = Loader.getPropByKey(CSys, 'MAX_SAVE_COMMAND')
     
 class VSearch:
     VSearch = Loader.loadConfig()['VSearch']
+    ARR_LEAGUE_TODAY = Loader.getPropByKey(VSearch, 'ARR_LEAGUE_TODAY')
     ARR_ACCESS_DENIED = Loader.getPropByKey(VSearch, 'ARR_ACCESS_DENIED')
     
 class CSearch:
